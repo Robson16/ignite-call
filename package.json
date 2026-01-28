@@ -32,7 +32,7 @@
     "check-up": "npm run format && npm run lint:fix"
   },
   "dependencies": {
-    "@beryl-ui/react": "^2.2.1",
+    "@beryl-ui/react": "^2.2.4",
     "@hookform/resolvers": "^5.2.2",
     "next": "^16.1.6",
     "phosphor-react": "^1.4.1",

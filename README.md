@@ -24,7 +24,7 @@ Ignite Call é uma aplicação web moderna que simplifica o processo de agendame
 - **Styling**: [Styled Components](https://styled-components.com/) 6.3.8
 - **Design System**: [@beryl-ui/react](https://www.npmjs.com/package/@beryl-ui/react) 2.2.1
 - **Linguagem**: [TypeScript](https://www.typescriptlang.org/) 5
-- **Ferramentas**: 
+- **Ferramentas**:
   - ESLint 9 (linting)
   - Prettier 3.8.1 (formatação)
 
