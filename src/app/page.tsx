@@ -1,12 +1,12 @@
 import Image from 'next/image'
 
-import Hero from '@/app/_components/Hero'
+import HomeIntro from '@/app/_components/HomeIntro'
 import { Container, Preview } from '@/app/_styles/pages/home'
 
 export default function Home() {
   return (
     <Container>
-      <Hero />
+      <HomeIntro />
       <Preview>
         <Image
           src="/app-preview.png"
