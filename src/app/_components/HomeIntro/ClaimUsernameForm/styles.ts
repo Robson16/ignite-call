@@ -1,6 +1,6 @@
 'use client'
 
-import { Box } from '@beryl-ui/react'
+import { Box, Text } from '@beryl-ui/react'
 import { styled } from 'styled-components'
 
 export const Form = styled(Box)`
@@ -19,4 +19,10 @@ export const Form = styled(Box)`
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
+`
+
+export const FormAnnotation = styled(Text)`
+  margin-top: ${({ theme }) => theme.space[2]};
+
+  color: ${({ theme }) => theme.colors.gray400};
 `
