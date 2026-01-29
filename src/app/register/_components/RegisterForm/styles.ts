@@ -1,4 +1,4 @@
-import { Box } from '@beryl-ui/react'
+import { Box, Text } from '@beryl-ui/react'
 import styled from 'styled-components'
 
 export const RegisterFormContainer = styled.div``
@@ -15,4 +15,8 @@ export const RegisterFormBox = styled(Box)`
     flex-direction: column;
     gap: ${({ theme }) => theme.space[2]};
   }
+`
+
+export const RegisterFormError = styled(Text)`
+  color: #f75a68;
 `
