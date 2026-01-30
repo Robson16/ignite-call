@@ -2,6 +2,7 @@
 
 import { Button, TextInput } from '@beryl-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
@@ -22,13 +23,22 @@ export function ClaimUsernameForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ClaimUsernameFormData>({
     resolver: zodResolver(claimUsernameFormSchema),
   })
 
+  const router = useRouter()
+
   async function handleClaimUsername(data: ClaimUsernameFormData) {
-    console.log(data.username)
+    try {
+      const { username } = data
+      await router.push(`/register?username=${username}`)
+    } catch (error) {
+      // TODO: Usar um toast para exibir erro
+      console.error('Falha ao redirecionar para a página de registro:', error)
+      alert('Ocorreu um erro. Tente novamente.')
+    }
   }
 
   return (
@@ -41,7 +51,7 @@ export function ClaimUsernameForm() {
           {...register('username')}
         />
 
-        <Button size="md" type="submit">
+        <Button size="md" type="submit" disabled={isSubmitting}>
           <>
             Reservar
             <ArrowRight />
@@ -50,9 +60,7 @@ export function ClaimUsernameForm() {
       </Form>
 
       <FormAnnotation size="sm">
-        {errors.username
-          ? errors.username.message
-          : 'Digite o nome do usuário desejado'}
+        {errors.username?.message ?? 'Digite o nome do usuário desejado'}
       </FormAnnotation>
     </>
   )
