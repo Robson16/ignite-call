@@ -2,6 +2,7 @@
 
 import { Button, MultiStep, Text, TextInput } from '@beryl-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { AxiosError } from 'axios'
 import { useSearchParams } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { useEffect } from 'react'
@@ -55,6 +56,11 @@ export function RegisterForm() {
         username: data.username,
       })
     } catch (error) {
+      if (error instanceof AxiosError && error?.response?.data?.message) {
+        alert(error.response.data.message)
+        return
+      }
+
       console.error(error)
     }
   }
