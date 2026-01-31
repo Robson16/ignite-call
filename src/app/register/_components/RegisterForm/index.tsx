@@ -8,6 +8,8 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 
+import { api } from '@/app/_lib/axios'
+
 import {
   RegisterFormBox,
   RegisterFormContainer,
@@ -47,7 +49,14 @@ export function RegisterForm() {
   }, [searchParams, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data)
+    try {
+      await api.post('/users', {
+        name: data.name,
+        username: data.username,
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
