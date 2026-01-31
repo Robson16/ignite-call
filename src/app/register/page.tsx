@@ -1,4 +1,7 @@
+import { Suspense } from 'react'
+
 import { RegisterForm } from './_components/RegisterForm'
+import { RegisterFormSkeleton } from './_components/RegisterFormSkeleton'
 import {
   RegisterContainer,
   RegisterHeader,
@@ -19,7 +22,9 @@ export default function RegisterPage() {
         </RegisterHeaderText>
       </RegisterHeader>
 
-      <RegisterForm />
+      <Suspense fallback={<RegisterFormSkeleton />}>
+        <RegisterForm />
+      </Suspense>
     </RegisterContainer>
   )
 }
