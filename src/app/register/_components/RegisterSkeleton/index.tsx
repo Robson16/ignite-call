@@ -4,10 +4,10 @@ import { Text } from '@beryl-ui/react'
 
 import { SkeletonBox } from './styles'
 
-export function RegisterFormSkeleton() {
+export function RegisterSkeleton() {
   return (
     <SkeletonBox>
-      <Text>Carregando formulário...</Text>
+      <Text>Carregando...</Text>
     </SkeletonBox>
   )
 }

@@ -4,6 +4,7 @@ import { Button, MultiStep, Text, TextInput } from '@beryl-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -40,6 +41,7 @@ export function RegisterForm() {
     resolver: zodResolver(registerFormSchema),
   })
 
+  const router = useRouter()
   const searchParams = useSearchParams()
 
   useEffect(() => {
@@ -55,8 +57,11 @@ export function RegisterForm() {
         name: data.name,
         username: data.username,
       })
+
+      router.push('/register/connect-calendar')
     } catch (error) {
       if (error instanceof AxiosError && error?.response?.data?.message) {
+        // TODO: Usar um toast para exibir erro
         alert(error.response.data.message)
         return
       }

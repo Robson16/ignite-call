@@ -1,29 +1,29 @@
 import { Suspense } from 'react'
 
-import { RegisterForm } from './_components/RegisterForm'
-import { RegisterSkeleton } from './_components/RegisterSkeleton'
+import { ConnectCalendar } from '../_components/ConnectCalendar'
+import { RegisterSkeleton } from '../_components/RegisterSkeleton'
 import {
   RegisterContainer,
   RegisterHeader,
   RegisterHeaderText,
   RegisterHeaderTitle,
-} from './styles'
+} from '../styles'
 
 export default function RegisterPage() {
   return (
     <RegisterContainer>
       <RegisterHeader>
         <RegisterHeaderTitle as="strong">
-          Bem-vindo ao Ignite Call!
+          Conecte sua agenda!
         </RegisterHeaderTitle>
         <RegisterHeaderText>
-          Precisamos de algumas informações para criar seu perfil! Ah, você pode
-          editar essas informações depois.
+          Conecte o seu calendário para verificar automaticamente as horas
+          ocupadas e os novos eventos à medida em que são agendados.
         </RegisterHeaderText>
       </RegisterHeader>
 
       <Suspense fallback={<RegisterSkeleton />}>
-        <RegisterForm />
+        <ConnectCalendar />
       </Suspense>
     </RegisterContainer>
   )

@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 
   if (userExists) {
     return NextResponse.json(
-      { message: 'Username already in use.' },
+      { message: 'Nome de usuário já em uso.' },
       {
         status: 400,
       },

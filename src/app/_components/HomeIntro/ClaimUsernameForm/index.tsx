@@ -33,7 +33,7 @@ export function ClaimUsernameForm() {
   async function handleClaimUsername(data: ClaimUsernameFormData) {
     try {
       const { username } = data
-      await router.push(`/register?username=${username}`)
+      router.push(`/register?username=${username}`)
     } catch (error) {
       // TODO: Usar um toast para exibir erro
       console.error('Falha ao redirecionar para a página de registro:', error)
