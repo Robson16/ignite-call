@@ -46,6 +46,31 @@ cd ignite-call
 npm install
 ```
 
+## ⚙️ Configuração
+
+Antes de rodar a aplicação, você precisa configurar as variáveis de ambiente. Crie um arquivo .env na raiz do projeto com o seguinte conteúdo:
+
+```env
+# Prisma / Database
+DATABASE_URL="file:./dev.db"
+
+# Google oAuth
+GOOGLE_CLIENT_ID="seu_client_id_aqui"
+GOOGLE_CLIENT_SECRET="seu_client_secret_aqui"
+```
+
+#### Obtendo credenciais do Google OAuth
+
+Para que a integração com o Google Calendar funcione (leitura de horários e agendamento), é necessário criar um projeto no Google Cloud Platform:
+
+1.  Acesse o [Google Cloud Console](https://console.cloud.google.com/).    
+2.  Crie um novo projeto.    
+3.  No menu **APIs & Services** > **Library**, procure e ative a **Google Calendar API**.    
+4.  Configure a **OAuth consent screen** (pode ser configurada como _External_ para testes).    
+5.  Vá em **Credentials** > **Create Credentials** > **OAuth Client ID**.    
+6.  Configure as origens autorizadas (`http://localhost:3000`) e as URIs de redirecionamento (ex: `http://localhost:3000/api/auth/callback/google`).    
+7.  Copie o `Client ID` e o `Client Secret` gerados para o seu arquivo `.env`.
+
 ### Desenvolvimento
 
 ```bash
