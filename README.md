@@ -57,19 +57,32 @@ DATABASE_URL="file:./dev.db"
 # Google oAuth
 GOOGLE_CLIENT_ID="seu_client_id_aqui"
 GOOGLE_CLIENT_SECRET="seu_client_secret_aqui"
+
+# NextAuth
+# Você pode gerar um segredo com: openssl rand -base64 32
+NEXTAUTH_SECRET="seu_segredo_aqui"
 ```
 
 #### Obtendo credenciais do Google OAuth
 
 Para que a integração com o Google Calendar funcione (leitura de horários e agendamento), é necessário criar um projeto no Google Cloud Platform:
 
-1.  Acesse o [Google Cloud Console](https://console.cloud.google.com/).    
-2.  Crie um novo projeto.    
-3.  No menu **APIs & Services** > **Library**, procure e ative a **Google Calendar API**.    
-4.  Configure a **OAuth consent screen** (pode ser configurada como _External_ para testes).    
-5.  Vá em **Credentials** > **Create Credentials** > **OAuth Client ID**.    
-6.  Configure as origens autorizadas (`http://localhost:3000`) e as URIs de redirecionamento (ex: `http://localhost:3000/api/auth/callback/google`).    
-7.  Copie o `Client ID` e o `Client Secret` gerados para o seu arquivo `.env`.
+1.  Acesse o Google Cloud Console.
+2.  Crie um novo projeto ou selecione um existente.
+3.  No menu de navegação, vá para **APIs & Services** > **Library**.
+4.  Procure e ative a **Google Calendar API**.
+5.  No menu, vá para **APIs & Services** > **OAuth consent screen**.
+    -   Selecione o tipo de usuário **External** e clique em **Create**.
+    -   Preencha as informações obrigatórias (nome do app, e-mail de suporte, etc.) e salve.
+    -   Na etapa "Scopes", clique em **Add or Remove Scopes**. Adicione os escopos da Google Calendar API:
+        -   `.../auth/calendar.readonly`
+        -   `.../auth/calendar.events`
+    -   Na etapa "Test users", adicione seu próprio e-mail do Google para poder testar a aplicação em desenvolvimento.
+6.  Volte ao menu e vá para **APIs & Services** > **Credentials**.
+7.  Clique em **Create Credentials** > **OAuth client ID**.
+8.  Selecione o tipo de aplicação como **Web application**.
+9.  Em "Authorized redirect URIs", adicione a URI de callback do NextAuth: `http://localhost:3000/api/auth/callback/google`.
+10. Clique em **Create**. Copie o **Client ID** e o **Client Secret** gerados para o seu arquivo `.env.local`.
 
 ### Desenvolvimento
 
@@ -110,8 +123,9 @@ ignite-call/
 │   ├── app/            # Aplicação Next.js (App Router)
 │   │   ├── layout.tsx  # Layout principal
 │   │   ├── page.tsx    # Página inicial
-│   │   ├── _components/
-│   │   │   └── Hero/   # Componentes da página
+│   │   ├── _components/  # Componentes de UI
+│   │   │   └── HomeIntro/
+│   │   ├── _providers/   # Provedores de contexto (React Context)
 │   │   └── _lib/
 │   ├── _styles/        # Estilos globais
 │   └── ...

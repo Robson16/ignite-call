@@ -1,6 +1,7 @@
 'use client'
 
 import { Button, MultiStep, Text } from '@beryl-ui/react'
+import { signIn, useSession } from 'next-auth/react'
 import { ArrowRight } from 'phosphor-react'
 
 import {
@@ -10,6 +11,8 @@ import {
 } from './styles'
 
 export function ConnectCalendar() {
+  const session = useSession()
+
   return (
     <ConnectCalendarContainer>
       <MultiStep size={4} currentStep={2} />
@@ -17,7 +20,11 @@ export function ConnectCalendar() {
       <ConnectCalendarBox>
         <ConnectCalendarItem>
           <Text>Google Calendar</Text>
-          <Button variant="secondary" size="sm">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => signIn('google')}
+          >
             <>
               Conectar
               <ArrowRight />
@@ -31,6 +38,10 @@ export function ConnectCalendar() {
             <ArrowRight />
           </>
         </Button>
+
+        <pre>
+          <Text>{JSON.stringify(session.data?.user?.name)}</Text>
+        </pre>
       </ConnectCalendarBox>
     </ConnectCalendarContainer>
   )
