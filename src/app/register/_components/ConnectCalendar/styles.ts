@@ -1,4 +1,4 @@
-import { Box } from '@beryl-ui/react'
+import { Box, Text } from '@beryl-ui/react'
 import styled from 'styled-components'
 
 export const ConnectCalendarContainer = styled.div``
@@ -21,4 +21,10 @@ export const ConnectCalendarItem = styled.div`
 
   border: 1px solid ${({ theme }) => theme.colors.gray600};
   border-radius: ${({ theme }) => theme.radii.md};
+`
+
+export const AuthError = styled(Text)`
+  margin-bottom: ${({ theme }) => theme.space[4]};
+
+  color: '#f75a68';
 `
