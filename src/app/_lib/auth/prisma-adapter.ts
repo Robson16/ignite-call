@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import type { Adapter, AdapterSession } from 'next-auth/adapters'
+import type { Adapter } from 'next-auth/adapters'
 
 import { prisma } from '../prisma'
 
