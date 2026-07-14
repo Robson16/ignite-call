@@ -1,30 +1,23 @@
 import { Suspense } from 'react'
 
 import { RegisterForm } from './_components/RegisterForm'
-import { RegisterSkeleton } from './_components/RegisterSkeleton'
-import {
-  RegisterContainer,
-  RegisterHeader,
-  RegisterHeaderText,
-  RegisterHeaderTitle,
-} from './styles'
+import { Skeleton } from './_components/Skeleton'
+import { Container, Header, HeaderText, HeaderTitle } from './styles'
 
 export default function RegisterPage() {
   return (
-    <RegisterContainer>
-      <RegisterHeader>
-        <RegisterHeaderTitle as="strong">
-          Bem-vindo ao Ignite Call!
-        </RegisterHeaderTitle>
-        <RegisterHeaderText>
+    <Container>
+      <Header>
+        <HeaderTitle as="strong">Bem-vindo ao Ignite Call!</HeaderTitle>
+        <HeaderText>
           Precisamos de algumas informações para criar seu perfil! Ah, você pode
           editar essas informações depois.
-        </RegisterHeaderText>
-      </RegisterHeader>
+        </HeaderText>
+      </Header>
 
-      <Suspense fallback={<RegisterSkeleton />}>
+      <Suspense fallback={<Skeleton />}>
         <RegisterForm />
       </Suspense>
-    </RegisterContainer>
+    </Container>
   )
 }

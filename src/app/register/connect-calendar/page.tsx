@@ -1,30 +1,23 @@
 import { Suspense } from 'react'
 
 import { ConnectCalendar } from '../_components/ConnectCalendar'
-import { RegisterSkeleton } from '../_components/RegisterSkeleton'
-import {
-  RegisterContainer,
-  RegisterHeader,
-  RegisterHeaderText,
-  RegisterHeaderTitle,
-} from '../styles'
+import { Skeleton } from '../_components/Skeleton'
+import { Container, Header, HeaderText, HeaderTitle } from '../styles'
 
-export default function RegisterPage() {
+export default function ConnectCalendarPage() {
   return (
-    <RegisterContainer>
-      <RegisterHeader>
-        <RegisterHeaderTitle as="strong">
-          Conecte sua agenda!
-        </RegisterHeaderTitle>
-        <RegisterHeaderText>
+    <Container>
+      <Header>
+        <HeaderTitle as="strong">Conecte sua agenda!</HeaderTitle>
+        <HeaderText>
           Conecte o seu calendário para verificar automaticamente as horas
           ocupadas e os novos eventos à medida em que são agendados.
-        </RegisterHeaderText>
-      </RegisterHeader>
+        </HeaderText>
+      </Header>
 
-      <Suspense fallback={<RegisterSkeleton />}>
+      <Suspense fallback={<Skeleton />}>
         <ConnectCalendar />
       </Suspense>
-    </RegisterContainer>
+    </Container>
   )
 }
