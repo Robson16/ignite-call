@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     status: 201,
   })
 
-  response.cookies.set('@ignite-call:userId', user.id, {
+  response.cookies.set('@ignitecall:userId', user.id, {
     maxAge: 60 * 60 * 24 * 7, // 7 Days
     path: '/',
   })
