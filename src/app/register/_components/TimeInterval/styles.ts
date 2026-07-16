@@ -42,3 +42,8 @@ export const TimeIntervalInputs = styled.div`
     filter: invert(100%) brightness(40%);
   }
 `
+
+export const FormError = styled(Text)`
+  color: #f75a68;
+  margin-bottom: ${({ theme }) => theme.space[4]};
+`
