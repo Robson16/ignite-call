@@ -2,7 +2,7 @@
 
 import { Button, Checkbox, MultiStep, Text, TextInput } from '@beryl-ui/react'
 import { ArrowRight } from 'phosphor-react'
-import { useFieldArray, useForm } from 'react-hook-form'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import z from 'zod'
 
 import { getWeekDays } from '@/app/_utils/get-week-days'
@@ -23,6 +23,7 @@ export function TimeInterval() {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { isSubmitting, errors },
   } = useForm({
     defaultValues: {
@@ -45,6 +46,8 @@ export function TimeInterval() {
     name: 'intervals',
   })
 
+  const intervals = watch('intervals')
+
   async function handleSetTimeIntervals() {}
 
   return (
@@ -60,18 +63,34 @@ export function TimeInterval() {
             return (
               <TimeIntervalItem key={field.id}>
                 <TimeIntervalDay>
-                  <Checkbox />
+                  <Controller
+                    name={`intervals.${index}.enabled`}
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <Checkbox
+                          onCheckedChange={(checked) =>
+                            field.onChange(checked === true)
+                          }
+                          checked={field.value}
+                        />
+                      )
+                    }}
+                  />
                   <Text>{weekDays[field.weekDay]}</Text>
                 </TimeIntervalDay>
+
                 <TimeIntervalInputs>
                   <TextInput
                     type="time"
                     step={60}
+                    disabled={intervals[index].enabled === false}
                     {...register(`intervals.${index}.startTime`)}
                   />
                   <TextInput
                     type="time"
                     step={60}
+                    disabled={intervals[index].enabled === false}
                     {...register(`intervals.${index}.endTime`)}
                   />
                 </TimeIntervalInputs>
