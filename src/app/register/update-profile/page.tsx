@@ -1,22 +1,21 @@
 import { Suspense } from 'react'
 
 import { Skeleton } from '../_components/Skeleton'
-import { TimeInterval } from '../_components/TimeInterval'
+import { UpdateProfile } from '../_components/UpdateProfile'
 import { Container, Header, HeaderText, HeaderTitle } from '../styles'
 
-export default function TimeIntervalPage() {
+export default function UpdateProfilePage() {
   return (
     <Container>
       <Header>
-        <HeaderTitle as="strong">Defina sua disponibilidade</HeaderTitle>
+        <HeaderTitle as="strong">Quase lá</HeaderTitle>
         <HeaderText>
-          Defina o intervalo de horários que você está disponivel em cada dia da
-          semana.
+          Por último, uma breve descrição e uma foto de perfil.
         </HeaderText>
       </Header>
 
       <Suspense fallback={<Skeleton />}>
-        <TimeInterval />
+        <UpdateProfile />
       </Suspense>
     </Container>
   )
