@@ -1,7 +1,7 @@
 'use client'
 
 import { Button, MultiStep, Text } from '@beryl-ui/react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn, useSession } from 'next-auth/react'
 import { ArrowRight, Check } from 'phosphor-react'
 
@@ -13,6 +13,7 @@ import {
 } from './styles'
 
 export function ConnectCalendar() {
+  const router = useRouter()
   const session = useSession()
   const searchParams = useSearchParams()
 
@@ -21,6 +22,10 @@ export function ConnectCalendar() {
 
   async function handleConnectCalendar() {
     await signIn('google')
+  }
+
+  async function handleNavigateToNextStep() {
+    await router.push('/register/time-intervals')
   }
 
   return (
@@ -58,7 +63,11 @@ export function ConnectCalendar() {
           </AuthError>
         )}
 
-        <Button type="submit" disabled={!isSignedIn}>
+        <Button
+          onClick={handleNavigateToNextStep}
+          type="submit"
+          disabled={!isSignedIn}
+        >
           <>
             Próximo passo
             <ArrowRight />

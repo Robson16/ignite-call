@@ -2,6 +2,7 @@
 
 import { Button, Checkbox, MultiStep, Text, TextInput } from '@beryl-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'phosphor-react'
 import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form'
 import z from 'zod'
@@ -82,6 +83,7 @@ export function TimeInterval() {
     },
   })
 
+  const router = useRouter()
   const weekDays = getWeekDays()
 
   const { fields } = useFieldArray({
@@ -98,6 +100,8 @@ export function TimeInterval() {
     intervals,
   }: TimeIntervalsFormOutput) {
     await api.post('/users/time-intervals', { intervals })
+
+    await router.push('/register/update-profile')
   }
 
   return (

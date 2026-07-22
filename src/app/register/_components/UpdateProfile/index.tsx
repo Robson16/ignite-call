@@ -1,11 +1,14 @@
 'use client'
 
-import { Button, MultiStep, Text, TextArea } from '@beryl-ui/react'
+import { Avatar, Button, MultiStep, Text, TextArea } from '@beryl-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
+
+import { api } from '@/app/_lib/axios'
 
 import {
   FormAnnotation,
@@ -28,11 +31,15 @@ export function UpdateProfile() {
     resolver: zodResolver(updateProfileSchema),
   })
 
+  const router = useRouter()
   const session = useSession()
 
   async function handleUpdateProfile(data: UpdateProfileData) {
-    console.log('Dados do formulário:', data)
-    console.log('Sessão:', session.data)
+    await api.put('/users/update-profile', {
+      bio: data.bio,
+    })
+
+    await router.push(`/schedule/${session.data?.user.username}`)
   }
 
   return (
@@ -40,7 +47,13 @@ export function UpdateProfile() {
       <MultiStep size={4} currentStep={4} />
 
       <UpdateProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
-        <Text size="sm">Foto de perfil</Text>
+        <Text as="label" size="sm">
+          Foto de perfil
+          <Avatar
+            src={session.data?.user.avatar_url}
+            alt={session.data?.user.name}
+          />
+        </Text>
 
         <Text as="label" size="sm">
           Sobre você
