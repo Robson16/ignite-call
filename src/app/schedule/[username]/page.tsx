@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 
 import { prisma } from '@/app/_lib/prisma'
 
+import { ScheduleForm } from '../_components/ScheduleForm'
 import { UserHeader } from '../_components/UserHeader'
 import { Container } from './styles'
 
@@ -29,6 +30,7 @@ export default async function SchedulePage({ params }: SchedulePageProps) {
   return (
     <Container>
       <UserHeader name={user.name} bio={user.bio} avatarUrl={user.avatar_url} />
+      <ScheduleForm />
     </Container>
   )
 }
