@@ -38,6 +38,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@prisma/client": "^5.10.2",
     "axios": "^1.13.4",
+    "dayjs": "^1.11.21",
     "next": "^16.1.6",
     "next-auth": "^4.24.13",
     "nookies": "^2.5.2",
