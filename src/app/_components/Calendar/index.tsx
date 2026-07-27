@@ -1,7 +1,7 @@
 'use client'
 
 import { CaretLeft, CaretRight } from 'phosphor-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import dayjs from '@/app/_lib/dayjs'
 import { getWeekDays } from '@/app/_utils/get-week-days'
@@ -23,6 +23,28 @@ export function Calendar() {
   const currentMonth = currentDate.format('MMMM')
   const currentYear = currentDate.format('YYYY')
   const shortWeekDays = getWeekDays({ short: true })
+
+  const calendarWeeks = useMemo(() => {
+    const daysInMonthArray = Array.from({
+      length: currentDate.daysInMonth(),
+    }).map((_, index) => {
+      return currentDate.set('date', index + 1)
+    })
+
+    const firstWeekDay = currentDate.get('day')
+
+    const previousMonthFillArray = Array.from({
+      length: firstWeekDay,
+    })
+      .map((_, index) => {
+        return currentDate.subtract(index + 1, 'day')
+      })
+      .reverse()
+
+    return [...previousMonthFillArray, ...daysInMonthArray]
+  }, [currentDate])
+
+  console.log(calendarWeeks)
 
   function handlePreviousMonth() {
     const previousMonthData = currentDate.subtract(1, 'month')
