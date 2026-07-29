@@ -37,6 +37,7 @@
     "@beryl-ui/react": "^2.2.4",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/client": "^5.10.2",
+    "@tanstack/react-query": "^5.101.4",
     "axios": "^1.13.4",
     "dayjs": "^1.11.21",
     "next": "^16.1.6",

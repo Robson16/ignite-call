@@ -1,6 +1,7 @@
 import { Roboto } from 'next/font/google'
 
 import StyledComponentsRegistry from '@/app/_lib/styled-components-registry'
+import ReactQueryProvider from '@/app/_providers/react-query-provider'
 import NextAuthSessionProvider from '@/app/_providers/session-provider'
 
 const roboto = Roboto({
@@ -23,7 +24,9 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={roboto.className} cz-shortcut-listen="true">
         <NextAuthSessionProvider>
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          <ReactQueryProvider>
+            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          </ReactQueryProvider>
         </NextAuthSessionProvider>
       </body>
     </html>
