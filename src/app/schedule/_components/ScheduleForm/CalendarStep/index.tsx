@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 import { Calendar } from '@/app/_components/Calendar'
+import { api } from '@/app/_lib/axios'
 import dayjs from '@/app/_lib/dayjs'
 
 import {
@@ -15,13 +17,33 @@ import {
 
 export function CalendarStep() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [availability, setAvailability] = useState(null)
+
+  const params = useParams()
 
   const isDateSelected = !!selectedDate
+  const username = String(params?.username ?? '')
 
   const weekDay = selectedDate ? dayjs(selectedDate).format('dddd') : null
   const describedDate = selectedDate
     ? dayjs(selectedDate).format('DD[ de ]MMMM')
     : null
+
+  useEffect(() => {
+    if (!selectedDate) {
+      return
+    }
+
+    api
+      .get(`/users/${username}/availability`, {
+        params: {
+          date: dayjs(selectedDate).format('YYYY-MM-DD'),
+        },
+      })
+      .then((response) => {
+        console.log(response.data)
+      })
+  }, [selectedDate, username])
 
   return (
     <Container $isTimePickerOpen={isDateSelected}>
