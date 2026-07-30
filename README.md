@@ -32,8 +32,17 @@ Ignite Call é uma aplicação web moderna que simplifica o processo de agendame
 
 - Node.js 18+
 - npm ou yarn
+- Docker
 
 ## 🚀 Como Começar
+
+### Banco de Dados
+
+Este projeto usa MySQL. Para iniciar o banco de dados em um contêiner Docker, execute:
+
+```bash
+docker-compose up -d
+```
 
 ### Instalação
 
@@ -41,7 +50,6 @@ Ignite Call é uma aplicação web moderna que simplifica o processo de agendame
 # Clone o repositório
 git clone https://github.com/Robson16/ignite-call.git
 cd ignite-call
-
 # Instale as dependências
 npm install
 ```
