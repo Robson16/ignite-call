@@ -1,9 +1,11 @@
 import { Button, Text, TextArea, TextInput } from '@beryl-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useParams } from 'next/navigation'
 import { CalendarBlank, Clock } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 
+import { api } from '@/app/_lib/axios'
 import dayjs from '@/app/_lib/dayjs'
 
 import {
@@ -30,12 +32,12 @@ type ConfirmFormData = z.infer<typeof confirmFormSchema>
 
 interface ConfirmStepProps {
   schedulingDate: Date
-  onCancelConfirmation: () => void
+  onReturnToCalendarStep: () => void
 }
 
 export function ConfirmStep({
   schedulingDate,
-  onCancelConfirmation,
+  onReturnToCalendarStep,
 }: ConfirmStepProps) {
   const {
     register,
@@ -45,8 +47,21 @@ export function ConfirmStep({
     resolver: zodResolver(confirmFormSchema),
   })
 
-  function handleConfirmScheduling(data: ConfirmFormData) {
-    console.log(data)
+  const params = useParams()
+
+  const username = String(params?.username ?? '')
+
+  async function handleConfirmScheduling(data: ConfirmFormData) {
+    const { name, email, observations } = data
+
+    await api.post(`/users/${username}/schedule`, {
+      name,
+      email,
+      observations,
+      date: schedulingDate,
+    })
+
+    onReturnToCalendarStep()
   }
 
   const describedDate = dayjs(schedulingDate).format('DD[ de ]MMMM[ de ]YYYY')
@@ -87,7 +102,11 @@ export function ConfirmStep({
       </Text>
 
       <FormActions>
-        <Button type="button" variant="tertiary" onClick={onCancelConfirmation}>
+        <Button
+          type="button"
+          variant="tertiary"
+          onClick={onReturnToCalendarStep}
+        >
           <>Cancelar</>
         </Button>
         <Button type="submit" disabled={isSubmitting}>
