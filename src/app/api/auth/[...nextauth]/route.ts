@@ -3,12 +3,24 @@ import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
 
 import { PrismaAdapter } from '@/app/_lib/auth/prisma-adapter'
 
+// TODO: Validar com zod
+const googleClientId = process.env.GOOGLE_CLIENT_ID
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET
+
+if (!googleClientId) {
+  throw new Error('Missing GOOGLE_CLIENT_ID environment variable.')
+}
+
+if (!googleClientSecret) {
+  throw new Error('Missing GOOGLE_CLIENT_SECRET environment variable.')
+}
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+      clientId: googleClientId,
+      clientSecret: googleClientSecret,
       authorization: {
         params: {
           scope:
