@@ -44,6 +44,72 @@ Este projeto usa MySQL. Para iniciar o banco de dados em um contêiner Docker, e
 docker-compose up -d
 ```
 
+### Migração para PostgreSQL (dev e prod)
+
+Para deixar o app preparado para futuramente subir em produção com PostgreSQL, a seguir estão os pontos principais da migração com base na documentação de referência:
+
+#### Desenvolvimento
+
+1. Subir o PostgreSQL localmente com Docker:
+
+```bash
+docker run --name postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+```
+
+2. Definir as variáveis de ambiente:
+
+```env
+DATABASE_URL="postgresql://postgres:docker@localhost:5432/ignitecall"
+DATABASE_DIRECT_URL="postgresql://postgres:docker@localhost:5432/ignitecall"
+```
+
+3. Ajustar o Prisma para usar PostgreSQL no arquivo `prisma/schema.prisma`:
+
+```prisma
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_DIRECT_URL")
+}
+```
+
+4. Gerar novas migrations:
+
+```bash
+rm -rf prisma/migrations
+npx prisma migrate dev
+```
+
+5. Ajustar a query de datas bloqueadas para usar funções equivalentes do PostgreSQL, como `EXTRACT`, `INTERVAL` e `DOW`.
+
+#### Produção
+
+Para produção, uma opção recomendada é usar o Neon, que oferece PostgreSQL com suporte serverless.
+
+- Use uma string de conexão direta para `DATABASE_DIRECT_URL`.
+- Use uma string pooled para `DATABASE_URL`.
+- Adicione `connect_timeout=10` nas duas conexões.
+- Para a conexão pooled, adicione também `pgbouncer=true`.
+
+Exemplo:
+
+```env
+DATABASE_DIRECT_URL="postgresql://usuario:senha@host/ignitecall?sslmode=require&connect_timeout=10"
+DATABASE_URL="postgresql://usuario:senha@host-pooler/ignitecall?sslmode=require&connect_timeout=10&pgbouncer=true"
+```
+
+> A separação entre `DATABASE_URL` e `DATABASE_DIRECT_URL` é importante porque a conexão pooled é usada pelas queries da aplicação e a conexão direta é usada por comandos do Prisma CLI, como migrations.
+
+Após configurar as variáveis, rode:
+
+```bash
+npx prisma migrate deploy
+```
+
+Essa configuração é útil para preparar o deploy do app em produção com PostgreSQL sem depender do MySQL.
+
+Referência original da documentação: [Ignite Call - Postgres (dev e prod)](https://efficient-sloth-d85.notion.site/Ignite-Call-Postgres-dev-e-prod-bd105befe0ab411cb7074aad72819613)
+
 ### Instalação
 
 ```bash
