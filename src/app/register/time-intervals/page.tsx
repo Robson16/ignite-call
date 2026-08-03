@@ -1,8 +1,16 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { Skeleton } from '../_components/Skeleton'
 import { TimeInterval } from '../_components/TimeInterval'
 import { Container, Header, HeaderText, HeaderTitle } from '../styles'
+
+export const metadata: Metadata = {
+  title: 'Selecione sua disponibilidade',
+  robots: {
+    index: false,
+  },
+}
 
 export default function TimeIntervalPage() {
   return (

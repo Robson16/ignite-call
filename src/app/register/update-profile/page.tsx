@@ -1,8 +1,16 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { Skeleton } from '../_components/Skeleton'
 import { UpdateProfile } from '../_components/UpdateProfile'
 import { Container, Header, HeaderText, HeaderTitle } from '../styles'
+
+export const metadata: Metadata = {
+  title: 'Atualize seu perfil',
+  robots: {
+    index: false,
+  },
+}
 
 export default function UpdateProfilePage() {
   return (

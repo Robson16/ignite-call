@@ -1,8 +1,18 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { ConnectCalendar } from '../_components/ConnectCalendar'
 import { Skeleton } from '../_components/Skeleton'
 import { Container, Header, HeaderText, HeaderTitle } from '../styles'
+
+export const metadata: Metadata = {
+  title: 'Conecte sua agenda',
+  description:
+    'Conecte o seu calendário para verificar automaticamente as horas ocupadas e os novos eventos à medida em que são agendados.',
+  robots: {
+    index: false,
+  },
+}
 
 export default function ConnectCalendarPage() {
   return (

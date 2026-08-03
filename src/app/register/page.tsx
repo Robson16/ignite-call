@@ -1,8 +1,13 @@
+import { Metadata } from 'next'
 import { Suspense } from 'react'
 
 import { RegisterForm } from './_components/RegisterForm'
 import { Skeleton } from './_components/Skeleton'
 import { Container, Header, HeaderText, HeaderTitle } from './styles'
+
+export const metadata: Metadata = {
+  title: 'Crie uma conta',
+}
 
 export default function RegisterPage() {
   return (

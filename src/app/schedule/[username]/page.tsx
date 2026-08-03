@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { prisma } from '@/app/_lib/prisma'
@@ -6,11 +7,25 @@ import { ScheduleForm } from '../_components/ScheduleForm'
 import { UserHeader } from '../_components/UserHeader'
 import { Container } from './styles'
 
-export const revalidate = 60 * 60 * 24 // 1 day
-
 interface SchedulePageProps {
   params: {
     username: string
+  }
+}
+
+export const revalidate = 60 * 60 * 24 // 1 day
+
+export async function generateMetadata({
+  params,
+}: SchedulePageProps): Promise<Metadata> {
+  const { username } = await params
+
+  const user = await prisma.user.findUnique({
+    where: { username },
+  })
+
+  return {
+    title: `Agendar com ${user?.name || 'usuário'}`,
   }
 }
 
